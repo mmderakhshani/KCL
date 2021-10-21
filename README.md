@@ -1,0 +1,1 @@
+This is a repository containing the code for reporducing the results of the paper **"Kernel Continual Learning, Derakhshani et. a.l, ICML 2021"**. The code for the purpose of the reproduction will be uploaded soon. 
