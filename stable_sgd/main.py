@@ -13,24 +13,6 @@ import time as benchmarker
 def count_parameters(model):
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
 
-# class_ids = [(0, 12),
-#  (13, 24),
-#  (25, 27),
-#  (28, 40),
-#  (41, 46),
-#  (47, 49),
-#  (50, 53),
-#  (54, 56),
-#  (57, 63),
-#  (64, 66),
-#  (67, 71),
-#  (72, 75),
-#  (76, 83),
-#  (84, 88),
-#  (89, 91),
-#  (92, 96),
-#  (97, 99)]
-
 time_complexity = AverageMeter()
 
 def train_single_epoch(net, optimizer, loader, coreset_loader, criterion, bias, lmd, gma, bta, args, task_id=None):
@@ -339,11 +321,11 @@ def run(args):
 
 		train_loader    = get_train_loader(train_dataset, args.batch_size)
 		coreset_loader  = get_train_loader(coreset_dataset, args.batch_size)
-		lr = max(args.lr * args.gamma ** (current_task_id), 0.00005) # Gamma Fucky is here. Fucky mocky
+		lr = max(args.lr * args.gamma ** (current_task_id), 0.00005) 
 		for epoch in range(1, args.epochs_per_task+1):
 			# 1. train and save
 			params = list(model.parameters()) + [lmd, gma, bta]
-			optimizer = torch.optim.SGD(params, lr=lr, momentum=0.8) # buggy fuccky 
+			optimizer = torch.optim.SGD(params, lr=lr, momentum=0.8)  
 			tic = benchmarker.time()
 			train_single_epoch(model, optimizer, train_loader, coreset_loader, criterion, bias, lmd, gma, bta, args, current_task_id)
 			toc = benchmarker.time()
